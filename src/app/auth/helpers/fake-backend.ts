@@ -24,30 +24,33 @@ import { User, Role } from 'app/auth/models';
 const users: User[] = [
   {
     id: 1,
+    username: 'admin',
     email: 'admin@demo.com',
     password: 'admin',
-    firstName: 'John',
+    givenName: 'John',
     lastName: 'Doe',
     avatar: 'avatar-s-11.jpg',
-    role: Role.Admin
+    roles: [Role.Admin]
   },
   {
     id: 2,
-    email: 'client@demo.com',
-    password: 'client',
-    firstName: 'Nataly',
+    username: 'manager',
+    email: 'manager@demo.com',
+    password: 'manager',
+    givenName: 'Nataly',
     lastName: 'Doe',
     avatar: 'avatar-s-2.jpg',
-    role: Role.Client
+    roles: [Role.Manager]
   },
   {
     id: 3,
+    username: 'user',
     email: 'user@demo.com',
     password: 'user',
-    firstName: 'Rose',
+    givenName: 'Rose',
     lastName: 'Doe',
     avatar: 'avatar-s-3.jpg',
-    role: Role.User
+    roles: [Role.User]
   }
 ];
 
@@ -79,16 +82,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     // route functions
 
     function authenticate() {
-      const { email, password } = body;
-      const user = users.find(x => x.email === email && x.password === password);
+      const { username, password } = body;
+      const user = users.find(x => x.username === username && x.password === password);
       if (!user) return error('Username or password is incorrect');
       return ok({
         id: user.id,
         email: user.email,
-        firstName: user.firstName,
+        firstName: user.givenName,
         lastName: user.lastName,
         avatar: user.avatar,
-        role: user.role,
+        roles: user.roles,
         token: `fake-jwt-token.${user.id}`
       });
     }
@@ -128,7 +131,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function isAdmin() {
-      return isLoggedIn() && currentUser().role === Role.Admin;
+      return isLoggedIn() && currentUser().roles.indexOf(Role.Admin) > -1;
     }
 
     function currentUser() {

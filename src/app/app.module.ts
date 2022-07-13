@@ -18,6 +18,7 @@ import { coreConfig } from 'app/app-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
+import { AuthGuard } from './auth/helpers';
 
 const appRoutes: Routes = [
   {

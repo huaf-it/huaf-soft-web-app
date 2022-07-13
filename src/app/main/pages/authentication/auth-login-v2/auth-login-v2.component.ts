@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, first } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+
+import { AuthenticationService } from 'app/auth/service/authentication.service';
 import { CoreConfigService } from '@core/services/config.service';
 
 @Component({
@@ -34,7 +36,8 @@ export class AuthLoginV2Component implements OnInit {
     private _coreConfigService: CoreConfigService,
     private _formBuilder: FormBuilder,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _authenticateService: AuthenticationService
   ) {
     this._unsubscribeAll = new Subject();
 
@@ -78,11 +81,19 @@ export class AuthLoginV2Component implements OnInit {
 
     // Login
     this.loading = true;
+    this._authenticateService.login(this.f.username.value, this.f.password.value)
+      .pipe(first())
+      .subscribe(response => {
+        if (response.success) {
+          this._router.navigate(['/']);
+        } else {
+          this.loading = false;
+        }
+      }, error => {
+        this.loading = false;
+        this.error = error
+      });
 
-    // redirect to home page
-    setTimeout(() => {
-      this._router.navigate(['/']);
-    }, 100);
   }
 
   // Lifecycle Hooks
@@ -93,7 +104,7 @@ export class AuthLoginV2Component implements OnInit {
    */
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', Validators.required]
     });
 

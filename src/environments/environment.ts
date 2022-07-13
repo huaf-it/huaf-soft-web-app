@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   hmr: false,
-  apiUrl: 'http://localhost:4000'
+  apiUrl: 'https://api-huaf-soft.taphuocanh.com/api/v1'
 };
 
 /*

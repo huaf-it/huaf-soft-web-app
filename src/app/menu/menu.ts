@@ -7,6 +7,7 @@ export const menu: CoreMenu[] = [
     translate: 'MENU.HOME',
     type: 'item',
     icon: 'home',
+    role: ['Admin'],
     url: 'home'
   },
   {
@@ -14,6 +15,7 @@ export const menu: CoreMenu[] = [
     title: 'Sample',
     translate: 'MENU.SAMPLE',
     type: 'item',
+    role: ['Manager'],
     icon: 'file',
     url: 'sample'
   }

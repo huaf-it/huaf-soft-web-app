@@ -34,49 +34,61 @@ export class AuthenticationService {
    *  Confirms if user is admin
    */
   get isAdmin() {
-    return this.currentUser && this.currentUserSubject.value.role === Role.Admin;
+    return this.currentUser && this.currentUserSubject.value.roles.indexOf(Role.Admin) > -1;
   }
 
   /**
-   *  Confirms if user is client
+   *  Confirms if user is manager
    */
-  get isClient() {
-    return this.currentUser && this.currentUserSubject.value.role === Role.Client;
+  get isManager() {
+    return this.currentUser && this.currentUserSubject.value.roles.indexOf(Role.Manager) > -1;
   }
 
   /**
    * User login
    *
-   * @param email
+   * @param username
    * @param password
    * @returns user
    */
-  login(email: string, password: string) {
+  login(username: string, password: string) {
     return this._http
-      .post<any>(`${environment.apiUrl}/users/authenticate`, { email, password })
+      .post<any>(`${environment.apiUrl}/authentication/login`, { username, password })
       .pipe(
-        map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
+        map(respone => {
 
-            // Display welcome toast!
-            setTimeout(() => {
-              this._toastrService.success(
-                'You have successfully logged in as an ' +
-                  user.role +
-                  ' user to Vuexy. Now you can start to explore. Enjoy! 🎉',
-                '👋 Welcome, ' + user.firstName + '!',
-                { toastClass: 'toast ngx-toastr', closeButton: true }
-              );
-            }, 2500);
+          if (respone.success) {
+            let user = respone.data;
+            // login successful if there's a jwt token in the response
+            if (user && user.token) {
+              // store user details and jwt token in local storage to keep user logged in between page refreshes
+              localStorage.setItem('currentUser', JSON.stringify(user));
+              localStorage.setItem('computerId', user.computer_id);
 
-            // notify
-            this.currentUserSubject.next(user);
+              // Display welcome toast!
+              setTimeout(() => {
+                this._toastrService.success(
+                  'You have successfully logged in as an ' +
+                    user.roles[0] +
+                    ' user to Vuexy. Now you can start to explore. Enjoy! 🎉',
+                  '👋 Welcome, ' + user.givenName + '!',
+                  { toastClass: 'toast ngx-toastr', closeButton: true }
+                );
+              }, 2500);
+
+              // notify
+              this.currentUserSubject.next(user);
+            }
+
+          } else {
+            this._toastrService.error(
+              respone.msg,
+              respone.error_type,
+              { toastClass: 'toast ngx-toastr', closeButton: true }
+            );
           }
-
-          return user;
+          
+          return respone;
         })
       );
   }
@@ -88,6 +100,7 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('computerId');
     // notify
     this.currentUserSubject.next(null);
   }

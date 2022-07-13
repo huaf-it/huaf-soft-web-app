@@ -2,11 +2,12 @@
 
 export class User {
   id: number;
+  username: string;
   email: string;
   password: string;
-  firstName: string;
+  givenName: string;
   lastName: string;
   avatar: string;
-  role: Role;
+  roles: Role[];
   token?: string;
 }

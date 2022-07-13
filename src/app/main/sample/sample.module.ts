@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CoreCommonModule } from '@core/common.module';
@@ -8,17 +8,20 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 
 import { SampleComponent } from './sample.component';
 import { HomeComponent } from './home.component';
-
-const routes = [
+import { AuthGuard } from '../../../app/auth/helpers';
+import { Role } from '../../auth/models/role';
+const routes: Routes = [
   {
     path: 'sample',
     component: SampleComponent,
-    data: { animation: 'sample' }
+    data: { animation: 'sample', roles: [Role.Manager] },
+    canActivate: [AuthGuard]
   },
   {
     path: 'home',
     component: HomeComponent,
-    data: { animation: 'home' }
+    data: { animation: 'home' },
+    canActivate: [AuthGuard]
   }
 ];
 

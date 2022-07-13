@@ -14,13 +14,13 @@ const routes: Routes = [
   {
     path: 'sample',
     component: SampleComponent,
-    data: { animation: 'sample', roles: [Role.Manager] },
+    data: { animation: 'sample', roles: [Role.Admin] },
     canActivate: [AuthGuard]
   },
   {
     path: 'home',
     component: HomeComponent,
-    data: { animation: 'home' },
+    data: { animation: 'home', roles: [Role.Admin] },
     canActivate: [AuthGuard]
   }
 ];

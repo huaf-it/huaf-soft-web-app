@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { CoreMenuService } from '@core/components/core-menu/core-menu.service';
+import { CoreMenu } from '@core/types';
 
 @Component({
   selector: '[core-menu]',
@@ -32,10 +33,15 @@ export class CoreMenuComponent implements OnInit {
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _coreMenuService: CoreMenuService) {
     // Set the private defaults
     this._unsubscribeAll = new Subject();
+
   }
 
   // Lifecycle hooks
   // -----------------------------------------------------------------------------------------------------
+
+  canAccess(item: CoreMenu): Boolean {
+    return typeof item.role == 'undefined' || item.role.some(roleRequired=> this.currentUser.roles.includes(roleRequired));
+  }
 
   /**
    * On init

@@ -19,7 +19,7 @@ export const coreConfig: CoreConfig = {
     appName     : 'Huaf soft',                                        // App Name
     appTitle    : 'Huaf soft', // App Title
     appLogoImage: 'assets/images/logo/logo.svg',                  // App Logo
-    appLanguage : 'en',                                           // App Default Language (en, fr, de, pt etc..)
+    appLanguage : 'vi',                                           // App Default Language (en, fr, de, pt etc..)
   },
   layout: {
     skin  : 'default',                        // default, dark, bordered, semi-dark

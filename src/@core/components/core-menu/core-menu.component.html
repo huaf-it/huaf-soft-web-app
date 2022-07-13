@@ -31,7 +31,7 @@
     <!-- item -->
     <li
       core-menu-vertical-item
-      *ngIf="item.type == 'item'"
+      *ngIf="item.type == 'item' && canAccess(item)"
       [item]="item"
       [ngClass]="{ disabled: item.disabled === true }"
       [routerLinkActive]="!item.openInNewTab ? 'active' : ''"
@@ -54,7 +54,7 @@
     <!-- item | if openInNewTab set routerLink & routerLinkActive blank -->
     <li
       core-menu-horizontal-item
-      *ngIf="item.type == 'item'"
+      *ngIf="item.type == 'item' && canAccess(item)"
       [item]="item"
       [ngClass]="{ disabled: item.disabled === true }"
       [routerLinkActive]="!item.openInNewTab ? 'active' : ''"

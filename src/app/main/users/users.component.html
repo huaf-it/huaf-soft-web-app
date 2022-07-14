@@ -26,7 +26,7 @@
                   <div class="d-flex justify-content-between align-items-center m-1">
                     <label class="d-flex align-items-center"
                     >Show
-                      <select class="form-control mx-25" [(ngModel)]="basicSelectedOption">
+                      <select class="form-control mx-25" [(ngModel)]="countPerPage">
                         <option value="10">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -49,18 +49,25 @@
                 </div>
               </div>
               <ngx-datatable
-                      [rows]="kitchenSinkRows"
+                      [rows]="Users"
                       [rowHeight]="58"
                       class="bootstrap core-bootstrap"
-                      [limit]="10"
                       [columnMode]="ColumnMode.force"
                       [headerHeight]="40"
                       [footerHeight]="50"
                       [scrollbarH]="true"
                       [selectionType]="SelectionType.checkbox"
-                      [limit]="basicSelectedOption"
+                      [externalPaging]="true"
+                      [limit]="countPerPage"
+                      [count]="totalRecords"
+                      [offset]="offsetPageNumber"
                       (activate)="onActivate($event)"
                       (select)="onSelect($event)"
+                      (page)="setPage($event)"
+                      [externalSorting]="true"
+                      (sort)="onSort($event)"
+                      [selected]="selected"
+                      [rowIdentity]="getId"
               >
                 <ngx-datatable-column
                         [width]="50"
@@ -79,8 +86,8 @@
                       <input
                               type="checkbox"
                               class="custom-control-input"
-                              [checked]="allRowsSelected"
-                              (change)="selectFn(!allRowsSelected)"
+                              [checked]="selectAllOnPage[offsetPageNumber]"
+                              (change)="selectAll($event)"
                               id="headerChkbxRef"
                       />
                       <label class="custom-control-label" for="headerChkbxRef"></label>
@@ -90,6 +97,7 @@
                           ngx-datatable-cell-template
                           let-rowIndex="rowIndex"
                           let-value="value"
+                          let-row="row"
                           let-isSelected="isSelected"
                           let-onCheckboxChangeFn="onCheckboxChangeFn"
                   >
@@ -98,14 +106,14 @@
                               type="checkbox"
                               class="custom-control-input"
                               [checked]="isSelected"
-                              (change)="onCheckboxChangeFn($event)"
+                              (change)="onCheckboxChangeCustomFn(row)"
                               id="rowChkbxRef{{ rowIndex }}"
                       />
                       <label class="custom-control-label" for="rowChkbxRef{{ rowIndex }}"></label>
                     </div>
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Name" prop="fullName" [width]="280">
+                <ngx-datatable-column name="{{ 'USERS.FIELDS.FULL_NAME.TITLE' | translate }}" prop="fullName" [width]="280">
                   <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                     <div class="d-flex align-items-center">
                       <div *ngIf="row.avatar && row.avatar.length > 0; else customAvatar">
@@ -140,7 +148,10 @@
                     </div>
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Email" prop="email" [width]="250"></ngx-datatable-column>
+                <ngx-datatable-column name="{{ 'USERS.FIELDS.CODE.TITLE' | translate }}" prop="code" [width]="150"></ngx-datatable-column>
+                <ngx-datatable-column name="{{ 'USERS.FIELDS.USERNAME.TITLE' | translate }}" prop="username" [width]="150"></ngx-datatable-column>
+
+                <ngx-datatable-column name="{{ 'USERS.FIELDS.EMAIL.TITLE' | translate }}" prop="email" [width]="250"></ngx-datatable-column>
 <!--                <ngx-datatable-column name="Date" prop="start_date" [width]="120"></ngx-datatable-column>-->
 <!--                <ngx-datatable-column name="Salary" prop="salary" [width]="120"></ngx-datatable-column>-->
 <!--                <ngx-datatable-column name="Status" prop="status" [width]="120">-->

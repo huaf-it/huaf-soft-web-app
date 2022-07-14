@@ -15,9 +15,12 @@ export class UsersService {
 
   constructor(private _http: HttpClient, private _toastrService: ToastrService, private _authenticationService: AuthenticationService) {}
 
-  getAll(page = 0, limit = 10) {
-    let request = this._http
-        .get<any>(`${environment.apiUrl}/admin/user/getAll`)
+  getAll(page = 0, limit = 10, orderBy?: string, order?: string) {
+    let requestUrl = `${environment.apiUrl}/admin/user/get/${page}/${limit}`;
+    if (orderBy) {
+      requestUrl += `/${orderBy}/${order}`;
+    }
+    let request = this._http.get<any>(requestUrl)
     return request
   }
 }

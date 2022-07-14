@@ -3,6 +3,7 @@ import {Division} from "./division";
 
 export class User {
   id: number;
+  code: string;
   username: string;
   email: string;
   password?: string;

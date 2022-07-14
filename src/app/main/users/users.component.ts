@@ -4,6 +4,7 @@ import { locale as vi } from './i18n/vi';
 
 import { CoreTranslationService } from '@core/services/translation.service';
 import { ColumnMode, DatatableComponent, SelectionType  } from '@swimlane/ngx-datatable';
+import {UsersService} from "./users.service";
 
 @Component({
   selector: 'app-users',
@@ -35,7 +36,7 @@ export class UsersComponent implements OnInit {
    *
    * @param {CoreTranslationService} _coreTranslationService
    */
-  constructor(private _coreTranslationService: CoreTranslationService) {
+  constructor(private _coreTranslationService: CoreTranslationService, private _userService: UsersService) {
     this._coreTranslationService.translate(vi)
   }
 
@@ -179,6 +180,9 @@ export class UsersComponent implements OnInit {
         ]
       }
     }
+
+    this._userService.getAll().subscribe(response => console.log)
+
     this.rows = [
       {
         responsive_id: '',

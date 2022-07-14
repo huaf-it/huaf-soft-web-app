@@ -15,7 +15,7 @@ export class UsersService {
 
   constructor(private _http: HttpClient, private _toastrService: ToastrService, private _authenticationService: AuthenticationService) {}
 
-  getAll() {
+  getAll(page = 0, limit = 10) {
     let request = this._http
         .get<any>(`${environment.apiUrl}/admin/user/getAll`)
     return request

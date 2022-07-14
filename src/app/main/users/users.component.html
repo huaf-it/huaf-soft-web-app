@@ -105,10 +105,10 @@
                     </div>
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Name" prop="full_name" [width]="280">
+                <ngx-datatable-column name="Name" prop="fullName" [width]="280">
                   <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                     <div class="d-flex align-items-center">
-                      <div *ngIf="row.avatar.length > 0; else customAvatar">
+                      <div *ngIf="row.avatar && row.avatar.length > 0; else customAvatar">
                         <img
                                 class="rounded-circle mr-1"
                                 src="assets/images/portrait/small/{{ row.avatar }}"
@@ -135,42 +135,42 @@
                         <p class="font-medium-1 font-weight-bold line-height-1 mb-25">
                           {{ name }}
                         </p>
-                        <span class="text-muted font-small-2"> {{ row.post }}</span>
+                        <span class="text-muted font-small-2"> {{ divisionsList(row) }}</span>
                       </div>
                     </div>
                   </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Email" prop="email" [width]="250"></ngx-datatable-column>
-                <ngx-datatable-column name="Date" prop="start_date" [width]="120"></ngx-datatable-column>
-                <ngx-datatable-column name="Salary" prop="salary" [width]="120"></ngx-datatable-column>
-                <ngx-datatable-column name="Status" prop="status" [width]="120">
-                  <ng-template let-status="value" ngx-datatable-cell-template>
-                    <div
-                            class="badge badge-pill"
-                            [ngClass]="{
-          'badge-light-primary': status == '1',
-          'badge-light-success': status == '2',
-          'badge-light-danger': status == '3',
-          'badge-light-warning': status == '4',
-          'badge-light-info': status == '5'
-        }"
-                    >
-                      {{
-                      status == 1
-                              ? 'Current'
-                              : status == 2
-                                      ? 'Professional'
-                                      : status == 3
-                                              ? 'Rejected'
-                                              : status == 4
-                                                      ? 'Resigned'
-                                                      : status == 5
-                                                              ? 'Applied'
-                                                              : 'Applied'
-                      }}
-                    </div>
-                  </ng-template>
-                </ngx-datatable-column>
+<!--                <ngx-datatable-column name="Date" prop="start_date" [width]="120"></ngx-datatable-column>-->
+<!--                <ngx-datatable-column name="Salary" prop="salary" [width]="120"></ngx-datatable-column>-->
+<!--                <ngx-datatable-column name="Status" prop="status" [width]="120">-->
+<!--                  <ng-template let-status="value" ngx-datatable-cell-template>-->
+<!--                    <div-->
+<!--                            class="badge badge-pill"-->
+<!--                            [ngClass]="{-->
+<!--          'badge-light-primary': status == '1',-->
+<!--          'badge-light-success': status == '2',-->
+<!--          'badge-light-danger': status == '3',-->
+<!--          'badge-light-warning': status == '4',-->
+<!--          'badge-light-info': status == '5'-->
+<!--        }"-->
+<!--                    >-->
+<!--                      {{-->
+<!--                      status == 1-->
+<!--                              ? 'Current'-->
+<!--                              : status == 2-->
+<!--                                      ? 'Professional'-->
+<!--                                      : status == 3-->
+<!--                                              ? 'Rejected'-->
+<!--                                              : status == 4-->
+<!--                                                      ? 'Resigned'-->
+<!--                                                      : status == 5-->
+<!--                                                              ? 'Applied'-->
+<!--                                                              : 'Applied'-->
+<!--                      }}-->
+<!--                    </div>-->
+<!--                  </ng-template>-->
+<!--                </ngx-datatable-column>-->
                 <ngx-datatable-column name="Actions" [width]="120" [sortable]="false">
                   <ng-template ngx-datatable-cell-template>
                     <div class="d-flex align-items-center">

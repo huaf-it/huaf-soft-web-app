@@ -14,5 +14,5 @@ export class User {
   divisions?: Array<Division>
   roles: Role[];
   token?: string;
-
+  expires?: number;
 }

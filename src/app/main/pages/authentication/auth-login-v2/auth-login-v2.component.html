@@ -34,9 +34,10 @@
 
         <form class="auth-login-form mt-2" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label class="form-label" for="login-username">Username</label>
+            <label class="form-label" for="username">Username</label>
             <input
               type="text"
+              id="username"
               formControlName="username"
               class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
@@ -46,16 +47,17 @@
               tabindex="1"
             />
             <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-              <div *ngIf="f.email.errors.required">Username is required</div>
+              <div *ngIf="f.username.errors.required">Username is required</div>
             </div>
           </div>
           <div class="form-group">
             <div class="d-flex justify-content-between">
-              <label for="login-password">Password</label
+              <label for="password">Password</label
               ><a routerLink="/pages/authentication/forgot-password-v2"><small>Forgot Password?</small></a>
             </div>
             <div class="input-group input-group-merge form-password-toggle">
               <input
+                      id="password"
                 [type]="passwordTextType ? 'text' : 'password'"
                 formControlName="password"
                 class="form-control form-control-merge"

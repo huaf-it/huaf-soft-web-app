@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   // canActivate
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this._authenticationService.currentUserValue;
-    if (currentUser) {
+    if (currentUser && !this.isExpiredToken()) {
       // check if route is restricted by role
       if (this.isNotAuthorized(route)) {
         // role not authorised so redirect to not-authorized page
@@ -31,7 +31,11 @@ export class AuthGuard implements CanActivate {
     this._router.navigate(['/pages/authentication/login-v2'], { queryParams: { returnUrl: state.url } });
     return false;
   }
-
+  isExpiredToken() {
+    const currentUser = this._authenticationService.currentUserValue;
+    if (currentUser.expires * 1000 < Date.now()) return true;
+    return false;
+  }
   isNotAuthorized(route: ActivatedRouteSnapshot) {
     const currentUser = this._authenticationService.currentUserValue;
     

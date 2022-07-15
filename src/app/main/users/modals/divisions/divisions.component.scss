@@ -1,0 +1,12 @@
+@import "../assets/scss/variables/variables";
+.division-list {
+  list-style: none;
+  padding: 0;
+}
+.division-item {
+  border: 0px solid $primary;
+  border-left-width: 4px;
+  margin-bottom: 1rem;
+  background: transparentize($primary, 0.9);
+  padding: 0.25rem 0 0.25rem 1rem;
+}

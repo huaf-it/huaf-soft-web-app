@@ -6,7 +6,8 @@ import { CoreTranslationService } from '@core/services/translation.service';
 import { ColumnMode, DatatableComponent, SelectionType  } from '@swimlane/ngx-datatable';
 import {UsersService} from "./users.service";
 import {User} from "../../auth/models";
-
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { DivisionsComponent } from "./modals/divisions/divisions.component";
 
 
 @Component({
@@ -36,11 +37,18 @@ export class UsersComponent implements OnInit {
   public exportCSVData;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild('tableRowDetails') tableRowDetails: any;
+  @ViewChild(DivisionsComponent) divisionsComponent: DivisionsComponent;
   /**
    *
    * @param {CoreTranslationService} _coreTranslationService
+   * @param {UsersService} _userService
+   * @param {NgbModal} _modalService
    */
-  constructor(private _coreTranslationService: CoreTranslationService, private _userService: UsersService) {
+  constructor(
+    private _coreTranslationService: CoreTranslationService,
+    private _userService: UsersService,
+    private _modalService: NgbModal
+  ) {
     this._coreTranslationService.translate(vi)
   }
 
@@ -141,12 +149,11 @@ export class UsersComponent implements OnInit {
         this.rows = response.data.records;
         this.totalRecords = response.data.totalRecords;
         this.tempData = this.rows;
-        this.Users = this.rows;
-        //     .map(user => {
-        //   user = <any>user;
-        //   user.selected = this.selected.some(selected => selected.id === user.id)
-        //   return user;
-        // });
+        this.Users = this.rows.map(user => {
+          user = <any>user;
+          user.status = Math.floor(Math.random() * 4) + 1
+          return user;
+        });
         console.log(this.Users, this.selected)
         if (!this.selectedCountOnPage[this.offsetPageNumber]) this.selectedCountOnPage[this.offsetPageNumber] = 0;
       }
@@ -204,7 +211,12 @@ export class UsersComponent implements OnInit {
     this.selected = [... this.selected];
 
   }
-
+  openModal(modal) {
+    console.log(modal)
+    this._modalService.open(modal, {
+      windowClass: 'modal'
+    });
+  }
   randomIntFromInterval(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min)
   }

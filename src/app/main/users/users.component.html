@@ -15,7 +15,15 @@
                 <div class="col-12 mb-50">
                   <button class="btn btn-primary ml-1" rippleEffect>
                     <i data-feather="plus" class="mr-0 mr-sm-1"></i
-                    ><span class="d-none d-sm-inline-block">Add New Record</span>
+                    ><span class="d-none d-sm-inline-block">{{ 'USERS.ACTIONS.ADD_NEW' | translate }}</span>
+                  </button>
+                  <button class="btn btn-info ml-1" rippleEffect>
+                    <i data-feather="pocket" class="mr-0 mr-sm-1"></i
+                    ><span class="d-none d-sm-inline-block">{{ 'USERS.ACTIONS.ROLES_MANAGER' | translate }}</span>
+                  </button>
+                  <button (click)="openModal(divisionsComponent)" class="btn btn-dark ml-1" rippleEffect>
+                    <i data-feather="layers" class="mr-0 mr-sm-1"></i
+                    ><span class="d-none d-sm-inline-block">{{ 'USERS.ACTIONS.DIVISIONS_MANAGER' | translate }}</span>
                   </button>
 
                   <!--            <a csvLink [data]="exportCSVData" class="btn btn-outline-secondary float-right mr-1" rippleEffect-->

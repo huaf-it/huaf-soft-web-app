@@ -11,6 +11,7 @@ import { AuthGuard } from '../../auth/helpers';
 import { Role } from '../../auth/models';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { DivisionsModule } from "./modals/divisions/divisions.module";
 
 
 const routes: Routes = [
@@ -27,7 +28,7 @@ const routes: Routes = [
     UsersComponent
   ],
   imports: [
-    RouterModule.forChild(routes), ContentHeaderModule, TranslateModule, CoreCommonModule, NgbModule, NgxDatatableModule
+    RouterModule.forChild(routes), ContentHeaderModule, TranslateModule, CoreCommonModule, NgbModule, NgxDatatableModule, DivisionsModule
   ],
   exports: [UsersComponent]
 })

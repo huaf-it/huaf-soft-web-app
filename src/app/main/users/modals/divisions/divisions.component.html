@@ -1,0 +1,27 @@
+<!-- Modal -->
+<ng-template #modalForm let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Inline Login Form</h4>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <form action="#">
+            <label>Email: </label>
+            <div class="form-group">
+                <input type="text" placeholder="Email Address" class="form-control" />
+            </div>
+            <label>Password: </label>
+            <div class="form-group">
+                <input type="password" placeholder="Password" class="form-control" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Accept click')" rippleEffect>
+            Login
+        </button>
+    </div>
+</ng-template>
+<!-- / Modal -->

@@ -4,11 +4,10 @@ import { locale as vi } from './i18n/vi';
 
 import { CoreTranslationService } from '@core/services/translation.service';
 import { ColumnMode, DatatableComponent, SelectionType  } from '@swimlane/ngx-datatable';
-import {UsersService} from "./users.service";
-import {User} from "../../auth/models";
+import { UsersService } from "./users.service";
+import { User } from "../../auth/models";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DivisionsComponent } from "./modals/divisions/divisions.component";
-
 
 @Component({
   selector: 'app-users',
@@ -17,7 +16,6 @@ import { DivisionsComponent } from "./modals/divisions/divisions.component";
   encapsulation: ViewEncapsulation.None
 })
 export class UsersComponent implements OnInit {
-  math = Math;
   public contentHeader: object
   public selected = [];
   public selectAllOnPage = [];
@@ -32,12 +30,9 @@ export class UsersComponent implements OnInit {
   public orderBy?: string;
   public order?: string;
   public ColumnMode = ColumnMode;
-  public chkBoxSelected = [];
   public SelectionType = SelectionType;
-  public exportCSVData;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild('tableRowDetails') tableRowDetails: any;
-  @ViewChild(DivisionsComponent) divisionsComponent: DivisionsComponent;
   /**
    *
    * @param {CoreTranslationService} _coreTranslationService
@@ -211,13 +206,12 @@ export class UsersComponent implements OnInit {
     this.selected = [... this.selected];
 
   }
-  openModal(modal) {
-    console.log(modal)
-    this._modalService.open(modal, {
-      windowClass: 'modal'
+  openDivisionsModal() {
+    const modalRef = this._modalService.open(DivisionsComponent, {
+      windowClass: 'modal',
+      size: 'lg'
     });
+    modalRef.componentInstance.name = 'World';
   }
-  randomIntFromInterval(min, max) { // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
+
 }

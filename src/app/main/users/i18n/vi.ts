@@ -24,7 +24,12 @@ export const locale = {
           ADD_NEW: "THÊM NGƯỜI DÙNG",
           ROLES_MANAGER: "QUẢN LÝ VAI TRÒ",
           DIVISIONS_MANAGER: "QUẢN LÝ ĐƠN VỊ"
+        },
+      MODALS: {
+        DIVISIONS: {
+          TITLE: 'QUẢN LÝ ĐƠN VỊ'
         }
+      }
     }
   }
 }

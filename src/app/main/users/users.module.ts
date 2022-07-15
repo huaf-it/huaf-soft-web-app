@@ -6,12 +6,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CoreCommonModule } from '@core/common.module';
 
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
-import { UsersComponent } from './users.component';
+import {UsersComponent} from './users.component';
 import { AuthGuard } from '../../auth/helpers';
 import { Role } from '../../auth/models';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { DivisionsModule } from "./modals/divisions/divisions.module";
+import {DivisionsComponent, usersCount} from "./modals/divisions/divisions.component";
 
 
 const routes: Routes = [
@@ -25,10 +25,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    UsersComponent
+    UsersComponent,
+    usersCount,
+    DivisionsComponent,
   ],
   imports: [
-    RouterModule.forChild(routes), ContentHeaderModule, TranslateModule, CoreCommonModule, NgbModule, NgxDatatableModule, DivisionsModule
+    RouterModule.forChild(routes), ContentHeaderModule, TranslateModule, CoreCommonModule, NgbModule, NgxDatatableModule
   ],
   exports: [UsersComponent]
 })

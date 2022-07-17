@@ -20,6 +20,7 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
 import { JwtInterceptor, ErrorInterceptor, AuthGuard } from 'app/auth/helpers';
 import { UsersModule } from './main/users/users.module';
+import {ProcedureModule} from "./main/procedure/procedure.module";
 
 const appRoutes: Routes = [
   {
@@ -62,7 +63,8 @@ const appRoutes: Routes = [
     // App modules
     LayoutModule,
     SampleModule,
-    UsersModule
+    UsersModule,
+    ProcedureModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

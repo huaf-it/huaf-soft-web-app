@@ -27,5 +27,14 @@ export const menu: CoreMenu[] = [
     role: [Role.Admin],
     icon: 'users',
     url: 'users'
+  },
+  {
+    id: 'procedures',
+    title: 'Procedures',
+    translate: 'MENU.PROCEDURES',
+    type: 'item',
+    role: [Role.Admin],
+    // icon: 'procedure',
+    url: 'procedures'
   }
 ]

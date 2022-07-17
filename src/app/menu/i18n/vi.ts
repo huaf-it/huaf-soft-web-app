@@ -5,6 +5,7 @@ export const locale = {
         HOME: 'TRANG CHỦ',
         SAMPLE: 'TRANG MÃU',
         USERS: 'NGƯỜI DÙNG',
+        PROCEDURES: 'QUY TRÌNH'
       }
     }
   }

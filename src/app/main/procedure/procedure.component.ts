@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { locale as vi } from './i18n/vi';
+import { CoreTranslationService } from '@core/services/translation.service';
 
 @Component({
   selector: 'app-procedure',
@@ -7,7 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProcedureComponent implements OnInit {
 
-  constructor() { }
+
+  /**
+   *
+   * @param {CoreTranslationService} _coreTranslationService
+   */
+  constructor(
+    private _coreTranslationService: CoreTranslationService,
+  ) {
+    this._coreTranslationService.translate(vi)
+  }
 
   ngOnInit(): void {
   }
